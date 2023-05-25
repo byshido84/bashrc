@@ -56,16 +56,16 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -98,7 +98,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 #alias ll='ls -l'
@@ -153,9 +153,9 @@ clr='\[\033[01;00m\]'
 function git_branch() {
     if [ -d .git ] ; then
         GITSTATUS=$(git status | awk '
-        /^Changes not staged/{printf("+")} 
-        /^Untracked files/{printf("*")} 
-        /^Changes not staged/{printf("?")} 
+        /^Changes not staged/{printf("+")}
+        /^Untracked files/{printf("*")}
+        /^Changes not staged/{printf("?")}
         /^Your branch is ahead of/{printf("^")}')
         printf "%s" "($(git branch 2> /dev/null | awk '/\*/{print $2}'))${GITSTATUS}";
     fi
@@ -191,7 +191,7 @@ function extract() {
                 ;;
             *.tar.bz2) tar xvjf $1
                 ;;
-	    *.tar.xz) tar xf $1
+            *.tar.xz) tar xf $1
                 ;;
             *.gz) gunzip $1
                 ;;
@@ -202,7 +202,7 @@ function extract() {
             *) printf "%s\n" "$1 cannot be extracted via this command."
                 ;;
         esac
-        
+
     else
 
         printf "%s\n" "Sorry, $1 is not a valid archive."
@@ -212,13 +212,13 @@ function extract() {
 }
 
 # Clear the screen.
-function c(){ 
-    clear; 
+function c(){
+    clear;
 }
 
 # Show the command line history.
-function h(){ 
-    history; 
+function h(){
+    history;
 }
 
 # See git status.
@@ -252,46 +252,46 @@ function gl() {
 }
 
 # Display mount output in columns.
-function mounted(){ 
-    /bin/mount | column -t; 
+function mounted(){
+    /bin/mount | column -t;
 }
 
 # Go back directory level.
-function ..(){ 
-    builtin cd ..; pwd; 
+function ..(){
+    builtin cd ..; pwd;
 }
 
 # Go back directory level.
-function ...(){ 
-    builtin cd ../..; pwd; 
+function ...(){
+    builtin cd ../..; pwd;
 }
 
 # List almost all files with classification.
-function l(){ 
-    ls --color=auto -F; 
+function l(){
+    ls --color=auto -F;
 }
 
 # List all files with classification.
-function la(){ 
-    ls --color=auto -A -F; 
+function la(){
+    ls --color=auto -A -F;
 }
 
 # Long list almost all files with classification and a humanly-readable size.
-function ll(){ 
-    ls --color=auto -A -F -l -h; 
+function ll(){
+    ls --color=auto -A -F -l -h;
 }
 
 # Long listing with the newest files last.
-function lt(){ 
-    ls --color=auto -A -F -l -h -t -r; 
+function lt(){
+    ls --color=auto -A -F -l -h -t -r;
 }
 
-function l.(){ 
-    ls --color=auto -A -F -d .* ; 
+function l.(){
+    ls --color=auto -A -F -d .* ;
 }
 
 function get_ip_address() {
-    for iface in /sys/class/net/*/operstate; do 
+    for iface in /sys/class/net/*/operstate; do
         if [ "$(cat $iface)" == "up" ]; then
             interface=$(echo $iface | awk -F'/' '{print $5}');
             ip addr show $interface | awk '/inet /{printf $2}';
@@ -310,10 +310,10 @@ function t(){ date +%H:%M:%S; }
 
 # Find PID of process.
 function psg(){ prog=$1; ps -ef | grep "$prog"; }
-  
+
 # Show active ports.
 function ports(){ netstat -tulpna; }
-  
+
 # Grep through history.
 function hg(){ history | grep $1; }
 
@@ -355,11 +355,11 @@ function get_temperature() {
     local status=$(echo $response | jq -r '.cod')
 
     case $status in
-        200) printf "Location: %s %s\n" "$(echo $response | jq '.name') $(echo $response | jq '.sys.country')"  
-             printf "Forecast: %s\n" "$(echo $response | jq '.weather[].description')" 
-             printf "Temperature: %.1f°F\n" "$(echo $response | jq '.main.temp')" 
-             printf "Temp Min: %.1f°F\n" "$(echo $response | jq '.main.temp_min')" 
-             printf "Temp Max: %.1f°F\n" "$(echo $response | jq '.main.temp_max')" 
+        200) printf "Location: %s %s\n" "$(echo $response | jq '.name') $(echo $response | jq '.sys.country')"
+             printf "Forecast: %s\n" "$(echo $response | jq '.weather[].description')"
+             printf "Temperature: %.1f°F\n" "$(echo $response | jq '.main.temp')"
+             printf "Temp Min: %.1f°F\n" "$(echo $response | jq '.main.temp_min')"
+             printf "Temp Max: %.1f°F\n" "$(echo $response | jq '.main.temp_max')"
             ;;
         401) echo "401 error"
             ;;
@@ -394,33 +394,33 @@ clear
 
 # Display system information in the terminal.
 printf "\n"
-printf '\033[00;32m'"%s   IP\t\t:\033[00m\033[01;32m$(curl ifconfig.me 2> /dev/null)\033[00m\n" 
+printf '\033[00;32m'"%s   IP\t\t:\033[00m\033[01;32m$(curl ifconfig.me 2> /dev/null)\033[00m\n"
 printf '\033[00;32m'"%s   USERNAME\t:\033[00m\033[01;32m$(echo $USER)\033[00m\n"
-printf '\033[00;32m'"%s   HOSTNAME\t:\033[00m\033[01;32m$(hostname -f)\033[00m\n" 
+printf '\033[00;32m'"%s   HOSTNAME\t:\033[00m\033[01;32m$(hostname -f)\033[00m\n"
 printf '\033[00;32m'"%s   DATE\t\t:\033[00m\033[01;32m$(date -R)\033[00m\n"
 printf '\033[00;32m'"%s   CPU\t\t:\033[00m\033[01;32m$(echo $(awk -F: '/model name/{print $2}' /proc/cpuinfo | head -1))\033[00m\n"
 printf '\033[00;32m'"%s   KERNEL\t:\033[01;32m$(uname -rms)\033[00m\n"
 printf '\033[00;32m'"%s   UPTIME\t:\033[01;32m$(uptime -p)\033[00m\n"
-printf '\033[00;32m'"%s   PACKAGES\t:\033[01;32m$(dpkg --get-selections | wc -l)\033[00m\n" 
-printf '\033[00;32m'"%s   RESOLUTION\t:\033[01;32m$(xrandr | awk '/\*/{printf $1" "}')\033[00m\n"
-printf '\033[00;32m'"%s   MEMORY\t:\033[01;32m$(free -m -h | awk '/Mem/{print $3"/"$2}')\033[00m\n" 
+printf '\033[00;32m'"%s   PACKAGES\t:\033[01;32m$(dpkg --get-selections | wc -l)\033[00m\n"
+#printf '\033[00;32m'"%s   RESOLUTION\t:\033[01;32m$(xrandr | awk '/\*/{printf $1" "}')\033[00m\n"
+printf '\033[00;32m'"%s   MEMORY\t:\033[01;32m$(free -m -h | awk '/Mem/{print $3"/"$2}')\033[00m\n"
 printf '\033[00;32m'"%s   IP ADDRESS: \033[01;32m"; get_ip_address "\033[00m\n"; printf "\n"
 printf '\033[00;32m'"%s   DNS SERVERS\t:\033[01;32m$(awk '/nameserver/{print $2" "}' /etc/resolv.conf)\033[00m\n"
-printf '\033[00;32m'"%s   GATEWAY\t:\033[01;32m$(ip r | awk '/default/{print $3}')\033[00m\n" 
+printf '\033[00;32m'"%s   GATEWAY\t:\033[01;32m$(ip r | awk '/default/{print $3}')\033[00m\n"
 printf "\n"
 
 
 export NVM_DIR="$HOME/.nvm"
 # Load nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 # Load nvm bash_completion
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 
 # Create virtural enviroments in project folders.
 export PIPENV_VENV_IN_PROJECT=1
 
 # Rust cargo env configuration.
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"
 
 ###############################################################################
