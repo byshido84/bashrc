@@ -29,12 +29,16 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=2000
-HISTFILESIZE=2000
+HISTSIZE=-1
+HISTFILESIZE=-1
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+
+PROMPT_COMMAND='history -a'
+
+
+
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -390,6 +394,7 @@ alias oct='cal -m 10'
 alias nov='cal -m 11'
 alias dec='cal -m 12'
 
+alias ha='history -a'
 clear
 
 # Display system information in the terminal.
@@ -424,3 +429,4 @@ export PIPENV_VENV_IN_PROJECT=1
 #. "$HOME/.cargo/env"
 
 ###############################################################################
+export TERM=linux
